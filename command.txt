@@ -1,0 +1,15 @@
+---use of git/github
+#下载windows/linux git
+git config --global user.name "your name"
+git config --global user.email "your email"
+mkdir myproject
+git init
+touch index.html
+git add index.html
+git commit -m "my first commit"  --->提交至git仓库
+git log  --->查询git提交日志记录（会显示对应的提交注释）
+cd ~/.ssh
+ls -al ~/.ssh
+ssh-genkey -t rsa -C "your email" --->生产供git与github连接的通讯公私钥，id_rsa.pub里面的内容拷贝至gitHub网站的ssh秘钥中
+eval $(ssh-agent -s)
+ssh git@github.com  --->连接github

@@ -1,0 +1,10 @@
+º¯Êý´´½¨£º
+-> delimiter //
+-> create function nextVal(seq_name varchar(50)) returns integer
+-> begin
+-> declare cur_val int;
+-> set cur_val = (select current_val from t_sequence where name = name);
+-> update t_sequence set current_val = current_val + increment where name = name;
+-> return cur_val;
+-> end;
+-> //

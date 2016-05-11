@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:security="http://www.springframework.org/schema/security"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+	
+	<!--不用添加到安全容器中去-->
+	<security:http pattern="/**/*.css" security="none" />
+	<security:http pattern="/**/*.js" security="none" />
+	<security:http pattern="/pages/index.jsp*" security="none" />
+	<security:http pattern="/pages/login.jsp*" security="none" />
+	<security:http pattern="/pages/register.jsp*" security="none" />
+	<security:http pattern="/toRegister" security="none" />
+	<security:http pattern="/register" security="none" />
+	
+	<security:http auto-config="true" use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint">
+        <security:form-login login-page="/pages/login.jsp" authentication-failure-url="/pages/login.jsp?error=true"
+        	default-target-url="/pages/index.jsp" always-use-default-target="true"/>
+		<security:logout logout-success-url="/pages/logoutSuccess.jsp" logout-url="/logout" delete-cookies="JSESSIONID"/>
+        <security:session-management invalid-session-url="/pages/login.jsp">
+        	<security:concurrency-control max-sessions="1"/>
+        </security:session-management> 
+		<!-- <security:intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')"/> -->
+		<security:access-denied-handler error-page="/pages/accessDenied.jsp"/>
+        <!-- "记住我"功能，采用持久化策略（将用户的登录信息存放在数据库表中）需要创建一张persistent_logins 表-->
+        <security:remember-me data-source-ref="dataSource" token-validity-seconds="1209600" remember-me-parameter="_spring_security_remember_me"/>
+        <!--  增加一个自定义的filter，放在FILTER_SECURITY_INTERCEPTOR之前，实现用户、角色、权限、资源的数据库管理。
+        	一个自定义的filter，必须包含authenticationManager,accessDecisionManager,securityMetadataSource三个属性 -->
+        <security:custom-filter ref="myFilter"  before="FILTER_SECURITY_INTERCEPTOR"/>
+	</security:http>
+	
+	<!-- 配置登录入口点 -->
+    <bean id="authenticationProcessingFilterEntryPoint"
+        class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <property name="loginFormUrl" value="/pages/login.jsp" />
+        <!-- 是否强制HTTPS -->
+        <property name="forceHttps" value="false" />
+    </bean>
+	
+	<!-- <bean id="myAuthenticationSuccessHandler" class="com.bill99.ian.security.MySimpleUrlAuthenticationSuccessHandler"/>
+	<bean id="myAuthenticationFailHandler" class="com.bill99.ian.security.MySimpleUrlAuthenticationFailHandler"/> -->
+	
+	<bean id="myFilter" class="com.bill99.ian.security.MyFilterSecurityInterceptor">
+		<!-- 验证 -->
+		<property name="authenticationManager" ref="myAuthenticationManager"/>
+		<!-- 决策 -->
+		<property name="accessDecisionManager" ref="myAccessDecisionManager"/>
+		<property name="securityMetadataSource" ref="mySecurityMetadataSource"/>
+	</bean>
+	<!-- <bean id="myLogoutFilter" class="com.bill99.ian.security.MyFilterSecurityInterceptor"></bean> -->
+	<!-- 项目实现的用户查询服务,将用户信息查询出来，注意能够为authentication-manager 设置alias别名  -->
+	<!-- 认证管理器，实现用户认证的入口，主要实现UserDetailsService接口即可 -->
+    <security:authentication-manager alias="myAuthenticationManager" erase-credentials="false"><!-- false:remember me --> 
+        <security:authentication-provider user-service-ref="myUserDetailsService">
+	        <security:password-encoder hash="md5"></security:password-encoder>
+	        <!-- <security:password-encoder ref="myPwdEncoder">
+	        </security:password-encoder> -->
+        </security:authentication-provider>
+    </security:authentication-manager>
+    <bean id="myUserDetailsService" class="com.bill99.ian.security.MyUserDetailsServiceImpl"/>
+    <bean id="myPwdEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    	<constructor-arg name="strength" value="10"></constructor-arg>
+  	</bean>
+    
+    <!-- 访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源。 -->
+	<bean id="myAccessDecisionManager" class="com.bill99.ian.security.MyAccessDecisionManager">
+		<!-- <property name="dataSource" ref="dataSource"></property> -->
+	</bean>
+	
+   	<!-- 资源源数据定义，将所有的资源和权限对应关系建立起来，即定义某一资源可以被哪些角色去访问。 -->
+    <bean id="mySecurityMetadataSource"
+        class="com.bill99.ian.security.MyInvocationSecurityMetadataSource" init-method="loadResourceDefine">
+    </bean>
+	<!-- <authentication-manager>
+        <authentication-provider>  
+			查询用户和对应的权限。。。
+	        <jdbc-user-service data-source-ref="dataSource" 
+				users-by-username-query="select u.username,u.password,u.status as enabled from users u where u.username=? " 
+				authorities-by-username-query="select u.username, r.name as authority from dbo.user_role ur join dbo.users u 
+				on u.id=ur.user_id join dbo.roles r on r.id=ur.role_id where u.username = ? " cache-ref="userCache"/> 
+		</authentication-provider>
+	</authentication-manager>
+	用户的缓存
+	<bean id="userCache" class="org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache">
+		<property name="cache" ref="userEhCache"></property>
+	</bean>    
+	<bean id="userEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheManager" ref="cacheManager"></property>
+		<property name="cacheName" value="userCache"></property>
+	</bean> 
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"></bean> -->
+    
+	<!-- 定义国际化 -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"> 
+        <property name="basename" value="classpath:org/springframework/security/messages_zh_CN" /> 
+    </bean>
+</beans>
