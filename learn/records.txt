@@ -1,0 +1,3 @@
+=== java nio ===
+
+NIO中有几个核心对象：缓冲区（Buffer）、通道（Channel）、选择器（Selector）

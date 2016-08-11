@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+<title>5.3. Python文件编码声明 -  - python初级教程：入门详解</title><link rel="stylesheet" type="text/css" href="http://www.crifan.com/files/res/docbook/css/docbook_crl.css"></link><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"></meta><link rel="home" href="index.html" title="python初级教程：入门详解"></link><link rel="up" href="ch05_python_grammar_and_basics.html" title="第 5 章 Python的基本语法和基础知识"></link><link rel="prev" href="python_2x_3x.html" title="5.2. Python中的2.x版本和3.x版本"></link><link rel="next" href="python_indent.html" title="5.4. Python中的缩进"></link><meta name="Section-title" content="5.3. Python文件编码声明"></meta><script type="text/javascript">
+            //The id for tree cookie
+            var treeCookieId = "treeview-2162";
+            var language = "zh";
+            var w = new Object();
+            //Localization
+            txt_filesfound = 'Results';
+            txt_enter_at_least_1_char = "You must enter at least one character.";
+            txt_browser_not_supported = "JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.";
+            txt_please_wait = "Please wait. Search in progress...";
+            txt_results_for = "Results for: ";
+        </script><link rel="shortcut icon" href="favicon.ico" type="image/x-icon"></link><link rel="stylesheet" type="text/css" href="http://www.crifan.com/files/res/docbook/webhelp/template/common/css/positioning.css"></link><link rel="stylesheet" type="text/css" href="http://www.crifan.com/files/res/docbook/webhelp/template/common/jquery/theme-redmond/jquery-ui-1.8.2.custom.css"></link><link rel="stylesheet" type="text/css" href="http://www.crifan.com/files/res/docbook/webhelp/template/common/jquery/treeview/jquery.treeview.css"></link><style type="text/css">
+
+#noscript{
+    font-weight:bold;
+	background-color: #55AA55;
+    font-weight: bold;
+    height: 25spx;
+    z-index: 3000;
+	top:0px;
+	width:100%;
+	position: relative;
+	border-bottom: solid 5px black;
+	text-align:center;
+	color: white;
+}
+
+input {
+    margin-bottom: 5px;
+    margin-top: 2px;
+}
+.folder {
+    display: block;
+    height: 22px;
+    padding-left: 20px;
+    background: transparent url(http://www.crifan.com/files/res/docbook/webhelp/template/common/jquery/treeview/images/folder.gif) 0 0px no-repeat;
+}
+span.contentsTab {
+    padding-left: 20px;
+    background: url(http://www.crifan.com/files/res/docbook/webhelp/template/common/images/toc-icon.png) no-repeat 0 center;
+}
+span.searchTab {
+    padding-left: 20px;
+    background: url(http://www.crifan.com/files/res/docbook/webhelp/template/common/images/search-icon.png) no-repeat 0 center;
+}
+
+/* Overide jquery treeview's defaults for ul. */
+.treeview ul {
+    background-color: transparent;
+    margin-top: 4px;
+}		
+#webhelp-currentid {
+    background-color: #D8D8D8 !important;
+}
+.treeview .hover { color: black; }
+.filetree li span a { text-decoration: none; font-size: 12px; color: #517291; }
+
+/* Override jquery-ui's default css customizations. These are supposed to take precedence over those.*/
+.ui-widget-content {
+    border: 0px; 
+    background: none; 
+    color: none;     
+}
+.ui-widget-header {
+    color: #e9e8e9;
+    border-left: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+    border-bottom: 1px solid #bbc4c5;
+    border-top: 4px solid #e5e5e5;
+    border: medium none;
+    background: #F4F4F4; /* old browsers */
+    background: -moz-linear-gradient(top, #F4F4F4 0%, #E6E4E5 100%); /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F4F4F4), color-stop(100%,#E6E4E5)); /* webkit */    
+    font-weight: none;
+}
+.ui-widget-header a { color: none; }
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { 
+border: none; background: none; font-weight: none; color: none; }
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: black; text-decoration: none; }
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: none; background: none; font-weight: none; color: none; }
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: none; background: none; font-weight: none; color: none; }
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { 
+    color: black; text-decoration: none; 	
+    background: #C6C6C6; /* old browsers */
+    background: -moz-linear-gradient(top, #C6C6C6 0%, #D8D8D8 100%); /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#C6C6C6), color-stop(100%,#D8D8D8)); /* webkit */
+    -webkit-border-radius:15px; -moz-border-radius:10px;
+    border: 1px solid #f1f1f1;
+}    
+.ui-corner-all { border-radius: 0 0 0 0; }
+
+.ui-tabs { padding: .2em;}
+.ui-tabs .ui-tabs-nav li { top: 0px; margin: -2px 0 1px; text-transform: uppercase; font-size: 10.5px;}
+.ui-tabs .ui-tabs-nav li a { padding: .25em 2em .25em 1em; margin: .5em; text-shadow: 0 1px 0 rgba(255,255,255,.5); }
+       /**
+	 *	Basic Layout Theme
+	 * 
+	 *	This theme uses the default layout class-names for all classes
+	 *	Add any 'custom class-names', from options: paneClass, resizerClass, togglerClass
+	 */
+
+	.ui-layout-pane { /* all 'panes' */ 
+		background: #FFF; 
+		border: 1px solid #BBB; 
+		padding: 05x; 
+		overflow: auto;
+	} 
+        
+	.ui-layout-resizer { /* all 'resizer-bars' */ 
+		background: #DDD; 
+                top:100px
+	} 
+
+	.ui-layout-toggler { /* all 'toggler-buttons' */ 
+		background: #AAA; 
+	} 
+    
+       </style><!--[if IE]>
+	<link rel="stylesheet" type="text/css" href="../common/css/ie.css"/>
+	<![endif]--><script type="text/javascript" src="http://www.crifan.com/files/res/docbook/webhelp/template/common/browserDetect.js"></script><script type="text/javascript" src="http://www.crifan.com/files/res/docbook/webhelp/template/common/jquery/jquery-1.7.2.min.js"></script><script type="text/javascript" src="http://www.crifan.com/files/res/docbook/webhelp/template/common/jquery/jquery.ui.all.js"></script><script type="text/javascript" src="http://www.crifan.com/files/res/docbook/webhelp/template/common/jquery/jquery.cookie.js"></script><script type="text/javascript" src="http://www.crifan.com/files/res/docbook/webhelp/template/common/jquery/treeview/jquery.treeview.min.js"></script><script type="text/javascript" src="http://www.crifan.com/files/res/docbook/webhelp/template/common/jquery/layout/jquery.layout.js"></script><script type="text/javascript" src="search/l10n.js"></script><script type="text/javascript" src="search/htmlFileInfoList.js"></script><script type="text/javascript" src="search/nwSearchFnt.js"></script><script type="text/javascript" src="search/stemmers/zh_stemmer.js"><!--//make this scalable to other languages as well.--></script><script type="text/javascript" src="search/index-1.js"></script><script type="text/javascript" src="search/index-2.js"></script><script type="text/javascript" src="search/index-3.js"></script></head><body><noscript><div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div></noscript><div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="http://www.crifan.com/files/res/docbook/webhelp/template/common/images/logo.png" alt=" Documentation"></img></a><h1>python初级教程：入门详解<br></br>第 5 章 Python的基本语法和基础知识</h1><div id="navheader"><table class="navLinks"><tr><td><a id="showHideButton" href="#" onclick="myLayout.toggle('west')" class="pointLeft" tabindex="5" title="Hide TOC tree">Sidebar
+                            </a></td><td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="python_2x_3x.html"><img src="http://www.crifan.com/files/res/docbook/images/prev.gif" alt="上一页"></img></a>
+                                        |
+                                        <a accesskey="u" class="navLinkUp" tabindex="5" href="ch05_python_grammar_and_basics.html"><img src="http://www.crifan.com/files/res/docbook/images/up.gif" alt="上一级"></img></a>
+                                    |
+                                    <a accesskey="n" class="navLinkNext" tabindex="5" href="python_indent.html"><img src="http://www.crifan.com/files/res/docbook/images/next.gif" alt="下一页"></img></a></td></tr></table></div></div><div id="content">
+<script xmlns="" type="text/javascript">  var _gaq = _gaq || [];  _gaq.push(['_setAccount', 'UA-28297199-1']);  _gaq.push(['_trackPageview']);  (function() {    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);  })();</script>
+<div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="python_file_encoding_declaration"></a>5.3. Python文件编码声明</h2></div></div></div>
+<p>之所以要在介绍Python的语法之前，先去说明这个Python文件的编码声明，</p><p>那是因为，更多的Python初学者，对于去参考别人写的Python的文件中的代码的时候，</p><p>前几行，就是看到的这部分，</p><p>所以，需要先介绍这部分的内容，</p><p>使得能在真正开始参考学习Python代码之前，就对于文件编码声明这部分的内容，有个清晰的认识</p><p>待整理：</p><p><a class="link" href="http://www.crifan.com/python_head_meaning_for_usr_bin_python_coding_utf-8" target="_top">【整理】关于Python脚本开头两行的：#!/usr/bin/python和# -*- coding: utf-8 -*-的作用 – 指定文件编码类型</a></p><p></p><p></p></div><script type="text/javascript" src="http://www.crifan.com/files/res/docbook/webhelp/template/common/main.js"></script><script type="text/javascript" src="http://www.crifan.com/files/res/docbook/webhelp/template/common/splitterInit.js"></script><div class="navfooter"><hr></hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="python_2x_3x.html"><img src="http://www.crifan.com/files/res/docbook/images/prev.gif" alt="上一页"></img></a> </td><td width="20%" align="center"><a accesskey="u" href="ch05_python_grammar_and_basics.html"><img src="http://www.crifan.com/files/res/docbook/images/up.gif" alt="上一级"></img></a></td><td width="40%" align="right"> <a accesskey="n" href="python_indent.html"><img src="http://www.crifan.com/files/res/docbook/images/next.gif" alt="下一页"></img></a></td></tr><tr><td width="40%" align="left" valign="top">5.2. Python中的2.x版本和3.x版本 </td><td width="20%" align="center"><a accesskey="h" href="index.html"><img src="http://www.crifan.com/files/res/docbook/images/home.gif" alt="起始页"></img></a></td><td width="40%" align="right" valign="top"> 5.4. Python中的缩进</td></tr></table></div></div><div id="sidebar"><div id="leftnavigation" style="padding-top:3px;"><div id="tabs"><ul><li><a href="#treeDiv" style="outline:0;" tabindex="1"><span class="contentsTab">Contents</span></a></li><li><a href="#searchDiv" style="outline:0;" tabindex="1" onclick="doSearch()"><span class="searchTab">Search</span></a></li></ul><div id="treeDiv"><img src="http://www.crifan.com/files/res/docbook/webhelp/template/common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;"></img><div id="ulTreeDiv" style="display:none"><ul id="tree" class="filetree"><li><span class="file"><a href="preface.html" tabindex="1">前言</a></span><ul><li><span class="file"><a href="purpose.html" tabindex="1">1. 本文目的</a></span></li><li><span class="file"><a href="prerequisite.html" tabindex="1">2. 看此文之前你所要掌握的知识</a></span></li></ul></li><li><span class="file"><a href="ch01_python_intro.html" tabindex="1">1. Python简介</a></span><ul><li><span class="file"><a href="what_is_python.html" tabindex="1">1.1. 什么是Python</a></span><ul><li><span class="file"><a href="python_word_self_mean.html" tabindex="1">1.1.1. Python这个单词的本意是蟒蛇</a></span></li><li><span class="file"><a href="python_lan_mean.html" tabindex="1">1.1.2. Python是一种计算机语言</a></span></li><li><span class="file"><a href="python_computer_lan_called_meaning.html" tabindex="1">1.1.3. 作为计算机语言的Python的各种叫法的含义</a></span><ul><li><span class="file"><a href="python_script_lan.html" tabindex="1">1.1.3.1. Python是一种脚本语言</a></span></li><li><span class="file"><a href="python_interactive_lan.html" tabindex="1">1.1.3.2. Python是一种交互性的语言</a></span></li><li><span class="file"><a href="python_interpreted_lan.html" tabindex="1">1.1.3.3. Python是一门解释性的语言</a></span></li><li><span class="file"><a href="python_object_oriented_lan.html" tabindex="1">1.1.3.4. Python是一种面向对象的语言</a></span></li><li><span class="file"><a href="python_high_level_lan.html" tabindex="1">1.1.3.5. Python是一种高级语言</a></span></li></ul></li></ul></li><li><span class="file"><a href="what_python_can_do.html" tabindex="1">1.2. Python能干什么</a></span></li><li><span class="file"><a href="python_features.html" tabindex="1">1.3. Python的特点</a></span><ul><li><span class="file"><a href="python_as_interpreted_lan_features.html" tabindex="1">1.3.1. 作为解释性语言的Python的优缺点</a></span><ul><li><span class="file"><a href="python_as_interpreted_lan_pros.html" tabindex="1">1.3.1.1. Python的优点</a></span></li><li><span class="file"><a href="python_as_interpreted_lan_cons.html" tabindex="1">1.3.1.2. Python的缺点</a></span></li></ul></li><li><span class="file"><a href="python_self_features.html" tabindex="1">1.3.2. Python语言自身的特点</a></span></li></ul></li><li><span class="file"><a href="python_related_basic_knowledge.html" tabindex="1">1.4. Python相关的必备知识</a></span><ul><li><span class="file"><a href="python_suffix.html" tabindex="1">1.4.1. Python文件的后缀是py</a></span></li><li><span class="file"><a href="python_abbr.html" tabindex="1">1.4.2. Python的缩写和简称</a></span></li><li><span class="file"><a href="python_official_website.html" tabindex="1">1.4.3. Python的官网</a></span></li><li><span class="file"><a href="python_logo.html" tabindex="1">1.4.4. Python的logo图案</a></span></li></ul></li></ul></li><li><span class="file"><a href="ch02_python_download.html" tabindex="1">2. 选择并下载合适的版本的Python</a></span><ul><li><span class="file"><a href="why_note_python_version.html" tabindex="1">2.1. 为何要注意选择合适版本的Python</a></span></li><li><span class="file"><a href="how_choose_python_version.html" tabindex="1">2.2. 如何选择正确版本的Python</a></span><ul><li><span class="file"><a href="clear_platform_info.html" tabindex="1">2.2.1. 明确当前所处平台版本的信息</a></span></li><li><span class="file"><a href="choose_avaliable_download_src.html" tabindex="1">2.2.2. 选择可用和速度快的下载源</a></span></li><li><span class="file"><a href="chooise_right_version_python.html" tabindex="1">2.2.3. 选择合适的版本的Python</a></span></li></ul></li></ul></li><li><span class="file"><a href="ch03_python_install.html" tabindex="1">3. 如何安装Python</a></span><ul><li><span class="file"><a href="how_install_python_in_win.html" tabindex="1">3.1. 如何在Windows系统中安装Python</a></span><ul><li><span class="file"><a href="install_python_in_win7.html" tabindex="1">3.1.1. 在Win7中安装Python</a></span></li></ul></li><li><span class="file"><a href="how_install_python_in_linux.html" tabindex="1">3.2. 如何在Linux系统中安装Python</a></span><ul><li><span class="file"><a href="install_python_in_ubuntu.html" tabindex="1">3.2.1. 在Ubuntu中安装Python</a></span></li></ul></li><li><span class="file"><a href="how_install_python_in_mac.html" tabindex="1">3.3. 如何在Mac中安装Python</a></span></li></ul></li><li><span class="file"><a href="ch04_python_dev_env.html" tabindex="1">4. 选择合适的Python开发环境</a></span><ul><li><span class="file"><a href="how_dev_python_in_window.html" tabindex="1">4.1. 如何在Windows环境下开发Python</a></span><ul><li><span class="file"><a href="primitive_env_dev_python.html" tabindex="1">4.1.1. Python的最原始的开发方式是什么样的</a></span><ul><li><span class="file"><a href="text_editor_new_py_write_code.html" tabindex="1">4.1.1.1. 找个文本编辑器，新建个.py文件，写上Python代码</a></span></li><li><span class="file"><a href="open_cmd_change_to_file_dir.html" tabindex="1">4.1.1.2. 打开Windows的cmd，并且切换到对应的python脚本所在目录</a></span><ul><li><span class="file"><a href="open_cmd_change_to_file_dir.html#manually_open_cmd_change_to_that_dir" tabindex="1">4.1.1.2.1. 方法1：手动打开cmd，并cd到对应路径</a></span></li><li><span class="file"><a href="open_cmd_change_to_file_dir.html#use_npp_open_current_dir" tabindex="1">4.1.1.2.2. 方法2：通过Notepad++的Open current dir cmd</a></span></li></ul></li><li><span class="file"><a href="run_your_python_file_in_cmd.html" tabindex="1">4.1.1.3. 在cmd中去运行你的Python脚本（.py文件）</a></span></li></ul></li><li><span class="file"><a href="use_python_interactive_shell_do_dev.html" tabindex="1">4.1.2. 利用Python的shell进行交互式开发又是什么样的</a></span><ul><li><span class="file"><a href="command_line_version_python_shell.html" tabindex="1">4.1.2.1. 命令行版本的Python Shell – Python (command line)</a></span></li><li><span class="file"><a href="gui_version_python_shell_idle.html" tabindex="1">4.1.2.2. 带图形界面的Python Shell – IDLE (Python GUI)</a></span></li><li><span class="file"><a href="python_shell_purpose.html" tabindex="1">4.1.2.3. 关于（command line或GUI版本的）Python Shell的用途</a></span></li></ul></li><li><span class="file"><a href="use_thirdparty_python_ide_do_dev.html" tabindex="1">4.1.3. 利用第三方Python的IDE进行Python开发又是怎么回事</a></span><ul><li><span class="file"><a href="why_arise_python_ide.html" tabindex="1">4.1.3.1. 为何会有Python的IDE</a></span></li><li><span class="file"><a href="common_python_ide.html" tabindex="1">4.1.3.2. 目前常见的一些Python的IDE</a></span></li><li><span class="file"><a href="python_ide_relation_with_windows_cmd.html" tabindex="1">4.1.3.3. Python的IDE和Python代码编辑器，Windows的cmd，等的关系</a></span></li><li><span class="file"><a href="common_issue_while_use_python_ide.html" tabindex="1">4.1.3.4. 使用IDE时所遇到的一些常见的问题</a></span><ul><li><span class="file"><a href="common_issue_while_use_python_ide.html#ide_open_file_not_mean_run_in_shell" tabindex="1">4.1.3.4.1. IDE只能够打开了文件，并不代表就已经在shell中运行了该文件</a></span></li><li><span class="file"><a href="common_issue_while_use_python_ide.html#makesure_runable_initial_python_code" tabindex="1">4.1.3.4.2. 需要注意，确保有可以运行的Python起始部分的代码</a></span></li></ul></li></ul></li><li><span class="file"><a href="summary_use_which_python_dev_env.html" tabindex="1">4.1.4. 总结：到底使用哪种环境去开发Python</a></span><ul><li><span class="file"><a href="recommand_for_beginner_on_how_choose_python_dev_env.html" tabindex="1">4.1.4.1. 对初学者的建议：如何选用Python的开发环境</a></span></li></ul></li><li><span class="file"><a href="use_python_under_windows.html" tabindex="1">4.1.5. 如何在Windows环境下使用Python脚本</a></span><ul><li><span class="file"><a href="run_py_in_cmd.html" tabindex="1">4.1.5.1. 如何在Windows下的cmd中运行BlogsToWordpress.py</a></span></li></ul></li></ul></li><li><span class="file"><a href="how_dev_python_in_linux.html" tabindex="1">4.2. 如何在Linux环境下开发Python</a></span></li><li><span class="file"><a href="how_dev_python_in_mac.html" tabindex="1">4.3. 如何在Mac环境下开发Python</a></span></li></ul></li><li><span class="file"><a href="ch05_python_grammar_and_basics.html" tabindex="1">5. Python的基本语法和基础知识</a></span><ul><li><span class="file"><a href="one_figure_entry_python.html" tabindex="1">5.1. 一张图片入门Python</a></span></li><li><span class="file"><a href="python_2x_3x.html" tabindex="1">5.2. Python中的2.x版本和3.x版本</a></span></li><li id="webhelp-currentid"><span class="file"><a href="python_file_encoding_declaration.html" tabindex="1">5.3. Python文件编码声明</a></span></li><li><span class="file"><a href="python_indent.html" tabindex="1">5.4. Python中的缩进</a></span></li><li><span class="file"><a href="python_var_declaration_and_definition.html" tabindex="1">5.5. Python中基本变量的声明和定义</a></span><ul><li><span class="file"><a href="python_var_scope.html" tabindex="1">5.5.1. Python中变量的作用域</a></span></li><li><span class="file"><a href="python_var_vs_c.html" tabindex="1">5.5.2. Python中变量与C语言中的变量对比</a></span></li></ul></li><li><span class="file"><a href="python_branch.html" tabindex="1">5.6. Python中的分支结构</a></span></li><li><span class="file"><a href="python_function.html" tabindex="1">5.7. Python中的函数</a></span></li><li><span class="file"><a href="python_object_programming.html" tabindex="1">5.8. Python中的面向对象编程</a></span></li></ul></li><li><span class="file"><a href="ch06_python_learn_method.html" tabindex="1">6. 继续学习Python的思路和方法</a></span><ul><li><span class="file"><a href="how_to_learn_python.html" tabindex="1">6.1. 如何继续深入学习Python</a></span></li><li><span class="file"><a href="how_utilize_python_res.html" tabindex="1">6.2. 如何利用Python相关资源</a></span><ul><li><span class="file"><a href="how_utilize_python_mannual.html" tabindex="1">6.2.1. 如何利用Python自带的手册</a></span></li><li><span class="file"><a href="how_utilize_python_online_res.html" tabindex="1">6.2.2. 如何利用一些在线的Python资源</a></span></li></ul></li></ul></li><li><span class="file"><a href="ch07_python_faq.html" tabindex="1">7. Python常见问题及解答</a></span></li><li><span class="file"><a href="ch08_python_res.html" tabindex="1">8. Python相关资源</a></span></li><li><span class="file"><a href="reference.html" tabindex="1">参考书目</a></span></li></ul></div></div><div id="searchDiv"><div id="search"><form onsubmit="Verifie(searchForm);return false" name="searchForm" class="searchForm"><div><input id="textToSearch" name="textToSearch" type="search" placeholder="Search" class="searchText" tabindex="1"></input> &nbsp; <input onclick="Verifie(searchForm)" type="button" class="searchButton" value="Go" id="doSearch" tabindex="1"></input></div></form></div><div id="searchResults"><center></center></div><p class="searchHighlight"><a href="#" onclick="toggleHighlight()">Search Highlighter (On/Off)</a></p></div></div></div></div></body></html>

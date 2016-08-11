@@ -1,0 +1,41 @@
+=== begin use of git/github ===
+#下载windows/linux git
+git config --global user.name "your name"
+git config --global user.email "your email"
+mkdir myproject
+git init
+touch index.html
+git add index.html
+git commit -m "my first commit"  --->提交至git仓库
+git log  --->查询git提交日志记录（会显示对应的提交注释）
+cd ~/.ssh
+ls -al ~/.ssh
+ssh-genkey -t rsa -C "your email" --->生产供git与github连接的通讯公私钥，id_rsa.pub里面的内容拷贝至gitHub网站的ssh秘钥中
+eval $(ssh-agent -s)
+#上传仓库文件到远端github
+ssh git@github.com  --->连接github
+git remote add origin git@github.com:chengbanban/ban-source.git 
+git pull -u origin master
+git push -u origin master
+
+#git分支使用
+git branch develop --->新建分支
+git checkout develop --->切换分支
+git checkout master
+git branch temIm
+git checkout temIm
+vim modify.txt
+git add modify.txt
+git commit -m "jin ji xiu fu."
+git checkout master
+git merge temIm
+git branch -d temIm
+
+git merge develop --->合并上线后最新版本-同步
+git checkout develop
+
+=== end python ===
+
+
+=== more ===
+touch file--->新建文件
